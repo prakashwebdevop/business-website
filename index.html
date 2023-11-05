@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fabrikraft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Black+Ops+One&family=Caveat&family=Dancing+Script&family=Great+Vibes&family=Nosifer&family=Satisfy&display=swap" rel="stylesheet">
+  <style>
+    
+    body, h1, h2, p, ul, li, img, button {
+      margin: 0;
+      padding: 0;
+      border: none;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f8f8;
+    }
+    header {
+      background-color: #fd5343;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 10px;
+      font-size: 36px;
+      color: #;
+      letter-spacing: 2px;
+      font-family: 'Great Vibes';
+      
+    }
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    nav ul li {
+      margin-right: 10px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    nav ul li a.active,
+    nav ul li a:hover {
+      background-color: #34495e;
+    }
+    main {
+      padding: 20px;
+    }
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+    }
+    .product-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .product {
+      width: 200px;
+      margin: 20px;
+      padding: 10px;
+      background-color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+    }
+    .product img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      cursor: zoom-in;
+    }
+    .product h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+    .product p {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #777;
+    }
+    .add-to-cart {
+      background-color: #3498db;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .add-to-cart:hover {
+      background-color: #2980b9;
+    }
+ 
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox img {
+      max-width: 80%;
+      max-height: 80%;
+      cursor: default;
+    }
+    .lightbox .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    #open{
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap:20px;
+    }
+    #himg{
+      height: 400px;
+      width: 400px;
+      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      align-content: center;
+    }
+    span{
+      color:#f2f2f2;
+    }
+    .tagline{
+      font-family: 'Great Vibes';
+      font-size: 50px;
+      color:#fd5343;
+    }
+    #contact{
+      background-color: #34495e;
+      color: #f2f2f2;
+      padding: 20px;
+      margin-top: 60px;
+      text-align:center;
+      border-radius: 5px;
+    }
+    #about{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:20px;
+    background-color: #34495e;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+
+
+
+   }
+
+  </style>
+  <script>
+    function openLightbox(imgSrc) {
+      var lightbox = document.querySelector('.lightbox');
+      var lightboxImg = lightbox.querySelector('img');
+      lightboxImg.src = imgSrc;
+      lightbox.style.display = 'flex';
+    }
+    function closeLightbox() {
+      var lightbox = document.querySelector('.lightbox');
+      lightbox.style.display = 'none';
+    }
+    const navLinks = document.querySelectorAll('nav ul li a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', handleNavLinkClick);
+    });
+    function handleNavLinkClick(event) {
+      event.preventDefault();
+      const clickedLink = event.target;
+      const activeLink = document.querySelector('nav ul li a.active');
+      if (activeLink) {
+        activeLink.classList.remove('active');
+      }
+      clickedLink.classList.add('active');
+      const targetId = clickedLink.getAttribute('href');
+      const targetSection = document.querySelector(targetId);
+      targetSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1> Fabri<span>Kraft</span></h1>
+    <nav>
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="home">
+      <div id="open">
+        <p class="tagline">"Experience the Finest <br>
+          Textiles at FabriKraft" </p>
+        <img id="himg" src="./buttons-312190_1280.png" alt="aesthetic">
+      </div>
+    </section>
+ 
+    <section id="products">
+      <h2>Products</h2>
+      <p>This section showcases our range of products. We offer a wide variety of textiles, including clothing, home decor, and accessories. Browse through our collection to find the perfect items for your needs.</p>
+      <p>Our products are carefully crafted using high-quality materials and designed to provide both comfort and style. Whether you're looking for trendy fashion pieces or elegant home furnishings, we have something for everyone.</p>
+    </section>
+    <section >
+      <h2>Featured Products</h2>
+      <div class="product-list">
+        <div class="product">
+          <img src="./gingham-48107_1280.png" alt="Product 1" onclick="openLightbox(this.src)">
+          <h3>Cotton Checks Cloth</h3>
+          <p>The cotton checks fabric in green color offers a classic and timeless style.</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="./pattern-656044_1280.png" alt="Product 2" onclick="openLightbox(this.src)">
+          <h3>Cheetah Print Cloth</h3>
+          <p>The cheetah print is a popular and fashionable pattern inspired by the beautiful and sleek cheetah, known for its speed and grace.</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="./sample-1099298_1280.png" alt="Product 3" onclick="openLightbox(this.src)">
+          <h3>Printed Cotton Cloth</h3>
+          <p>It features a vibrant blue color with an attractive printed design.</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="./camouflage-145980_1280.png" alt="Product 3" onclick="openLightbox(this.src)">
+          <h3>Military Print Cloth</h3>
+          <p>This military print cloth features a camouflage-inspired design, perfect for creating stylish and edgy garments and accessories with a military touch. </p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="./background-7083251_1280.png" alt="Product 3" onclick="openLightbox(this.src)">
+          <h3>Floral Print Cloth</h3>
+          <p>This floral print cloth showcases a beautiful array of colorful flowers, adding a touch of elegance and femininity to any sewing or crafting project. </p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="./blue-766491_1280.png" alt="Product 3" onclick="openLightbox(this.src)">
+          <h3>Blue Floral Print Cloth</h3>
+          <p>This blue floral print cloth combines the beauty of flowers with a soothing blue color palette, creating a fabric that is both vibrant and serene. </p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="./blue-3368023_1280.png" alt="Product 3" onclick="openLightbox(this.src)">
+          <h3>Blue Pattern Cloth</h3>
+          <p>This blue pattern cloth features an intricate and eye-catching design, adding a pop of color and personality to your sewing projects. </p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="./a-circle-1270677_1280.png" alt="Product 3" onclick="openLightbox(this.src)">
+          <h3>Printed Cloth</h3>
+          <p>This printed cloth comes in various designs and colors, allowing you to choose the perfect fabric to bring your creative ideas to life. </p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="./pattern-7687826_1280.png" alt="Product 3" onclick="openLightbox(this.src)">
+          <h3>Colorful Print Cloth</h3>
+          <p>This colorful print cloth features a vibrant and playful mix of colors, making it a versatile choice for a wide range of sewing and crafting projects.</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+    <section id="about">
+      <h2 style="color:#fd5343">About Us</h2>
+      <div class="ap">
+      <p >Welcome to FabriKraft, your one-stop destination for all your textile needs. We are passionate about providing our customers with top-notch products and excellent customer service.</p>
+      <p >With years of experience in the industry, we have curated a collection of the finest textiles from around the world. Our team of experts ensures that every product meets the highest standards of quality and craftsmanship.</p>
+    </div>
+  </section>
+    <section id="contact">
+      <h2 style="color:#fd5343">Contact Us</h2>
+      <p>If you have any questions, feedback, or inquiries, we would love to hear from you. Feel free to reach out to our customer support team through the following channels:</p>
+      <ul>
+        <li>Phone: 12345-67890</li>
+        <li>Email: xxxx@fankraft.com</li>
+        <li>Address: #xx, xxxx street, xxxx area, xxxxx, India.</li>
+      </ul>
+      <p>Our dedicated team is available to assist you and provide any information you may need. We value your satisfaction and strive to provide the best possible experience for our customers.</p>
+    </section>
+  </main>
+  
+  <div class="lightbox">
+    <img src="" alt="">
+    <div class="close" onclick="closeLightbox()">x</div>
+  </div>
+</body>
+</html>
